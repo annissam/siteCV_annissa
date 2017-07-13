@@ -153,10 +153,6 @@
                     <li>
                         <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-
-                    <li>
-                        <a href="tables.php"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
                     <li class="active">
                         <a href="forms.php"><i class="fa fa-fw fa-edit"></i> Forms</a>
                     </li>
@@ -436,7 +432,14 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
+    <!-- Morris Charts JavaScript -->
+    <!-- <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script> -->
+    <script src="js/annissa.js"></script>
 </body>
 
 </html>

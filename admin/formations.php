@@ -3,15 +3,17 @@
 <?php
 //gestion des contenus
 //insertion d'une formation
-if(isset($_POST['formation'])){ // si onn recupere une nouvelle formation
-    if($_POST['formation']!=''){//si compétencde n'est pas vide
-        $formation = addslashes($_POST['formation']);
-        $pdoCV->exec("INSERT INTO t_formations VALUES (NULL, '$formation', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+if(isset($_POST['titre_f'])){ // si onn recupere une nouvelle formation
+    if($_POST['titre_f']!=''){//si compétencde n'est pas vide
+        $titre = addslashes($_POST['titre_f']);
+        $sous_titre = addslashes($_POST['sous_titre_f']);
+        $date = addslashes($_POST['dates_f']);
+        $description = addslashes($_POST['description_f']);
+        $pdoCV->exec("INSERT INTO t_formations VALUES (NULL,'$titre','$sous_titre','$date','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: formations.php");
-            exit();
-
-            }//ferme le if
-        }// ferme le if isset
+            // exit();
+        }//ferme le if
+    }// ferme le if isset
  //suppression d'une formation
  if(isset($_GET['id_formation'])){
      $efface =$_GET['id_formation'];
@@ -35,7 +37,8 @@ if(isset($_POST['formation'])){ // si onn recupere une nouvelle formation
     <meta name="author" content="">
 
     <title>Admin<?php echo $ligne_utilisateur['prenom'].''.$ligne_utilisateur['nom']; ?></title>
-
+    <!-- CKEDITOR -->
+     <script src="https://cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -169,7 +172,7 @@ if(isset($_POST['formation'])){ // si onn recupere une nouvelle formation
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="login.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -180,38 +183,27 @@ if(isset($_POST['formation'])){ // si onn recupere une nouvelle formation
                     <li class="active">
                         <a href="index.php"><i class="fa fa-fw fa-dashboard"></i>  <?php echo $ligne_utilisateur['prenom']; ?></a>
                     </li>
-
-                    <li>
-                        <a href="tables.php"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.php"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Insertion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
+                                <a href="competences.php">Competences</a>
+                            </li>
+                            <li>
                                 <a href="experiences.php">Experiences</a>
                             </li>
-                                <li>
-                                    <a href="competences.php">Competences</a>
-                                </li>
                             <li>
                                 <a href="formations.php">Formations</a>
                             </li>
                             <li>
                                 <a href="loisirs.php">Loisirs</a>
                             </li>
+                            <li>
+                                <a href="realisations.php">Realisation</a>
+                            </li>
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -265,7 +257,7 @@ if(isset($_POST['formation'])){ // si onn recupere une nouvelle formation
                              <section>
                                  <div class="row">
                                      <?php
-                                     $sql =$pdoCV ->prepare("SELECT * FROM t_formations WHERE utilisateur_id ='1'"); // prépar la requete
+                                     $sql =$pdoCV ->prepare("SELECT * FROM t_formations WHERE utilisateur_id ='1' "); // prépar la requete
                                      $sql ->execute();//execute-la
                                      $nbr_formations =$sql-> rowCount();
                                      ?>
@@ -281,29 +273,49 @@ if(isset($_POST['formation'])){ // si onn recupere une nouvelle formation
                                      <table class="table table-striped">
                                          <tbody>
                                              <tr>
-                                                 <th scope="col">formation</th>
-                                                 <th scope="col">année</th>
-                                                 <th scope="col">modifier</th>
-                                                 <th scope="col">supprimer</th>
+                                                 <th scope="col">Titre formation</th>
+                                                 <th scope="col">Sous titre</th>
+                                                 <th scope="col">Date </th>
+                                                 <th scope="col">Description</th>
+                                                 <th scope="col">Modifier</th>
+                                                 <th scope="col">Supprimer</th>
                                              </tr>
 
                                              <tr>
                                                  <?php while($ligne_formation = $sql->fetch()) { ?>
-                                                 <td><?php echo $ligne_formation['formation']; ?></td>
+                                                 <td><?php echo $ligne_formation['titre_f']; ?></td>
+                                                 <td><?php echo $ligne_formation['sous_titre_f']; ?></td>
+                                                 <td><?php echo $ligne_formation['dates_f']; ?></td>
+                                                 <td><?php echo $ligne_formation['description_f']; ?></td>
                                                  <td><a href="modif_formation.php?id_formation=<?php echo $ligne_formation['id_formation']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                                 <td><a href="formations.php?id_formation=<?php echo $ligne_formation['id_formation']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>;
+                                                 <td><a href="formations.php?id_formation=<?php echo $ligne_formation['id_formation']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
                                              </tr>
                                              <?php } ?>
                                          </tbody>
                                      </table>
                                      <!-- form modification d'une formation -->
-                                     <form action="formations.php" method="post" class="text-center">
+                                     <div class="tableau">
+
+                                     <form action="formations.php" name="formation" method="post" class="text-center">
                                          <div class="form-group">
-                                             <label for="formation">Inserer</label>
-                                             <input type="text" name="formation" class="form-control" id="formation" placeholder="inserez une compétence" >
+                                             <label for="titre_f">formation</label>
+                                             <input type="text" name="titre_f" class="form-control" id="titre_f" placeholder="inserez une formation" >
+
+                                             <label for="sous_titre_f">Sous-Titre</label>
+                                             <input type="text" name="sous_titre_f" class="form-control" id="sous_titre_f" placeholder="inserez un sous-titre" >
+
+                                             <label for="dates_f">Date</label>
+                                             <input type="date" name="dates_f" class="form-control" id="dates_f" >
+
+                                             <label for="description_e">Desription</label>
+                                             <textarea  name="description_f" class="form-control" id="description_f"></textarea>
+                                             <script>CKEDITOR.replace( 'description_f' )</script>
+
                                          </div>
-                                         <input type="submit" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
+                                         <input type="submit" name="formation" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
                                     </form>
+
+                                    </div>
                                     </div>
                                 </div>
 

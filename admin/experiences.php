@@ -3,10 +3,10 @@
 <?php
 //gestion des contenus
 //insertion d'une experience
-if(isset($_POST)){ // si onn recupere une nouvelle experience
-    if($_POST['experience']!=''){//si compétencde n'est pas vide
+if(isset($_POST['titre_e'])){ // si onn recupere une nouvelle experience
+    if($_POST['titre_e']!=''){//si compétencde n'est pas vide
         $titre = addslashes($_POST['titre_e']);
-        $date = addslashes($_POST['date_e']);
+        $date = addslashes($_POST['dates_e']);
         $sous_titre = addslashes($_POST['sous_titre_e']);
         $description = addslashes($_POST['description_e']);
         $pdoCV->exec("INSERT INTO t_experiences VALUES (NULL, '$date','$titre','$sous_titre','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
@@ -185,16 +185,6 @@ if(isset($_POST)){ // si onn recupere une nouvelle experience
                     </li>
 
                     <li>
-                        <a href="tables.php"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.php"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-
-                    <li>
-                        <a href="bootstrap-grid.php"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Insertion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -209,12 +199,12 @@ if(isset($_POST)){ // si onn recupere une nouvelle experience
                             <li>
                                 <a href="loisirs.php">Loisirs</a>
                             </li>
+                            <li>
+                                <a href="realisations.php">Realisation</a>
+                            </li>
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

@@ -1,25 +1,31 @@
 <?php require '../connexion/connexion.php' ?>
-
 <?php
-//gestion des contenus
-//insertion d'une loisir
-if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
-    if($_POST['loisir']!=''){//si compétencde n'est pas vide
-        $loisirs = addslashes($_POST['loisir']);
-        $pdoCV->exec("INSERT INTO t_loisirs VALUES (NULL, '$loisirs', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
-            header("location: loisirs.php");
-            exit();
+//je recupere la realisation
+//gestion des contenus, mise a jour d'une realisation
+if(isset($_POST['titre_r'])){
+		$titre = addslashes($_POST['titre_r']);
+		$sous_titre = addslashes($_POST['sous_titre_r']);
+        $dates = addslashes($_POST['dates_r']);
+		$description = addslashes($_POST['description_r']);
 
-            }//ferme le if
-        }// ferme le if isset
- //suppression d'une loisir
- if(isset($_GET['id_loisir'])){
-     $efface =$_GET['id_loisir'];
-     $sql ="DELETE FROM t_loisirs WHERE id_loisir = '$efface'";
-     $pdoCV-> query($sql);//ou on peut avec exex
-     header("location :../admin/loisirs.php");
- }
- ?>
+		$id_realisation = $_POST['id_realisation'];
+
+
+
+    $pdoCV->exec("UPDATE t_realisations SET titre_r='$titre', sous_titre_r='$sous_titre', dates_r='$dates',description_r='$description' WHERE id_realisation='$id_realisation'");
+    header('location: ../admin/realisations.php');
+    exit();
+
+}
+//UPDATE t_realisations SET realisation='$realisation' WHERE id_realisation'$id_realisation' WHERE id_realisation='$id_realisation'
+
+
+$id_realisation = $_GET['id_realisation'];// par l'id et $_GET
+$sql = $pdoCV->query("SELECT * FROM t_realisations WHERE id_realisation = '$id_realisation'"); // la requete egale à l'id
+$ligne_realisation = $sql ->fetch();//
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -47,6 +53,7 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.ckeditor.com/4.7.1/basic/ckeditor.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -184,13 +191,13 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Insertion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="competences.php">Competence</a>
+                                <a href="competences.php">Competences</a>
                             </li>
                             <li>
                                 <a href="experiences.php">Experiences</a>
                             </li>
                             <li>
-                                <a href="formations.php">Formations</a>
+                                <a href="formations.php">Formation</a>
                             </li>
                             <li>
                                 <a href="loisirs.php">Loisirs</a>
@@ -201,6 +208,9 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -213,10 +223,6 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <?php
-                        $sql =$pdoCV->query("SELECT * FROM t_titres_cv WHERE utilisateur_id ='1'");
-                        $ligne_titre =$sql->fetch();//va chercher sur une ligne!
-                        ?>
                         <small></small>
                         <h1 class="page-header">
                         </h1>
@@ -253,44 +259,37 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                              <!--SECTION-1 -->
                              <section>
                                  <div class="row">
-                                     <?php
-                                     $sql =$pdoCV ->prepare("SELECT * FROM t_loisirs WHERE utilisateur_id ='1'"); // prépar la requete
-                                     $sql ->execute();//execute-la
-                                     $nbr_loisirs =$sql-> rowCount();
-                                     ?>
+
                                  </div>
                              </section>
                             <div class="col-lg-12 page-header text-center">
-                                <h2>LOISIRS</h2>
-                                <p>Il y a <?php echo $nbr_loisirs; ?> Loisirs dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
+                                <h2>MODIF REALISATIONS</h2>
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 page-header text-center">
-                                     <table class="table table-striped">
-                                         <tbody>
-                                             <tr>
-                                                 <th scope="col">loisirs</th>
-                                                 <th scope="col">modifier</th>
-                                                 <th scope="col">supprimer</th>
-                                             </tr>
+                                        <div class="tableau">
 
-                                             <tr>
-                                                 <?php while($ligne_loisir = $sql->fetch()) { ?>
-                                                 <td><?php echo $ligne_loisir['loisir']; ?></td>
-                                                 <td><a href="modif_loisirs.php?id_loisir=<?php echo $ligne_loisir['id_loisir']?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                                 <td><a class="supr" href="loisirs.php?id_loisir=<?php echo $ligne_loisir['id_loisir']?>"><span class="glyphicon glyphicon-trash"></span></a></td>;
-                                             </tr>
-                                             <?php } ?>
-                                         </tbody>
-                                     </table>
-                                     <form action="loisirs.php" method="post" class="text-center">
-                                         <div class="form-group">
-                                             <label for="loisir">Inserer</label>
-                                             <input type="text" name="loisir" class="form-control" id="loisir" placeholder="inserez une compétence" >
-                                         </div>
-                                         <input type="submit" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
-                                    </form>
+                                        <form action="modif_realisation.php" method="post" class="text-center">
+                                            <div class="form-group">
+                                                <label for="titre_r">Formulaire de mise a jour de la realisation</label>
+                                                <input type="text" name="titre_r" class="form-control" id="titre_r" value="<?php echo $ligne_realisation['titre_r']; ?>">
+                                                <input name="id_realisation" hidden value="<?= $ligne_realisation['id_realisation']; ?>">
+
+                                                <label for="sous_titre_r">Modifier le sous-Titre</label>
+                                                <input type="text" name="sous_titre_r" class="form-control" id="sous_titre_r" value="<?php echo $ligne_realisation['sous_titre_r']; ?>">
+
+                                                <label for="dates_r">Modifier la date</label>
+                                                <input type="date" name="dates_r" class="form-control" id="dates_r" value="<?php echo $ligne_realisation['dates_r']; ?>">
+
+                                                <label for="description_r">Modifier la desription</label>
+                                                <textarea  name="description_r" class="form-control" id="description_r"><?php echo $ligne_realisation['description_r']; ?></textarea>
+                                                <script>CKEDITOR.replace( 'description_r' );</script>
+
+                                            </div>
+                                            <input type="submit" name="realisation" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
+                                       </form>
+                                       </div>
                                     </div>
                                 </div>
 
@@ -301,20 +300,19 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
 
                 <!-- /.row -->
 
-                <!-- /#wrapper -->
+    <!-- /#wrapper -->
 
-                <!-- jQuery -->
-                <script src="js/jquery.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-                <!-- Bootstrap Core JavaScript -->
-                <script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
-                <!-- Morris Charts JavaScript -->
-                <!-- <script src="js/plugins/morris/raphael.min.js"></script>
-                <script src="js/plugins/morris/morris.min.js"></script>
-                <script src="js/plugins/morris/morris-data.js"></script> -->
+    <!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
 
-                <script src="js/annissa.js"></script>
-            </body>
+</body>
 
-            </html>
+</html>

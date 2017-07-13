@@ -3,10 +3,17 @@
 <?php
 //je recupere la experience
 //gestion des contenus, mise a jour d'une experience
-if(isset($_POST['experience'])){// par le nom du premier input
-    $experience=addslashes($_POST['experience']);
-    $id_experience = $_POST['id_experience'];
-    $pdoCV->exec("UPDATE t_experiences SET experience='$experience'WHERE id_experience='$id_experience'");
+if(isset($_POST['titre_e'])){
+		$titre = addslashes($_POST['titre_e']);
+        $dates = addslashes($_POST['dates_e']);
+		$sous_titre = addslashes($_POST['sous_titre_e']);
+		$description = addslashes($_POST['description_e']);
+
+		$id_experience = $_POST['id_experience'];
+
+
+
+    $pdoCV->exec("UPDATE t_experiences SET titre_e='$titre', dates_e='$dates', sous_titre_e='$sous_titre', description_e='$description' WHERE id_experience='$id_experience'");
     header('location: ../admin/experiences.php');
     exit();
 
@@ -14,9 +21,9 @@ if(isset($_POST['experience'])){// par le nom du premier input
 //UPDATE t_experiences SET experience='$experience' WHERE id_experience'$id_experience' WHERE id_experience='$id_experience'
 
 
-$id_experience = $_GET['id_experience'];// par l'id et $_GET
-$sql = $pdoCV->query("SELECT * FROM t_experiences WHERE id_experience = '$id_experience'"); // la requete egale à l'id
-$ligne_experience = $sql ->fetch();//
+    $id_experience = $_GET['id_experience']; // par l'id et $_GET
+    $sql = $pdoCV->query(" SELECT * FROM t_experiences WHERE id_experience = '$id_experience' "); // la requête égale à l'id
+    $ligne_experience = $sql->fetch(); //
 ?>
 
 
@@ -169,7 +176,7 @@ $ligne_experience = $sql ->fetch();//
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="login.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -179,17 +186,6 @@ $ligne_experience = $sql ->fetch();//
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
                         <a href="index.php"><i class="fa fa-fw fa-dashboard"></i>  <?php echo $ligne_utilisateur['prenom']; ?></a>
-                    </li>
-
-                    <li>
-                        <a href="tables.php"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.php"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Insertion <i class="fa fa-fw fa-caret-down"></i></a>
@@ -206,12 +202,12 @@ $ligne_experience = $sql ->fetch();//
                             <li>
                                 <a href="loisirs.php">Loisirs</a>
                             </li>
+                            <li>
+                                <a href="realisations.php">Realisation</a>
+                            </li>
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -264,20 +260,33 @@ $ligne_experience = $sql ->fetch();//
                                  </div>
                              </section>
                             <div class="col-lg-12 page-header text-center">
-                                <h2>MODIF experienceS</h2>
+                                <h2>MODIF EXPERIENCES</h2>
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 page-header text-center">
 
                                      <!-- form modification d'une experience -->
+                                     <div class="tableau">
+
                                      <form action="modif_experience.php" method="post" class="text-center">
                                          <div class="form-group">
-                                             <label for="experience">Formulaire de mise a jour de la compétence</label>
-                                             <input type="text" name="experience" class="form-control"value="<?php echo $ligne_experience['experience']; ?>">
-                                             <input hidden name="id_experience" value="<?php echo $ligne_experience['id_experience']; ?>">
+                                             <label for="titre_e">Formulaire de mise a jour de l'experiene</label>
+                                             <input type="text" name="titre_e" class="form-control" id="experience" value="<?php echo $ligne_experience['titre_e']; ?>">
+                                             <input name="id_experience" hidden value="<?= $ligne_experience['id_experience']; ?>">
+
+                                             <label for="dates_e">Modifier la date</label>
+                                             <input type="date" name="dates_e" class="form-control" id="dates_e" value="<?php echo $ligne_experience['dates_e']; ?>">
+
+                                             <label for="sous_titre_e">Modifier le sous-Titre</label>
+                                             <input type="text" name="sous_titre_e" class="form-control" id="sous_titre_e" value="<?php echo $ligne_experience['sous_titre_e']; ?>">
+
+                                             <label for="description_e">Modifier la desription</label>
+                                             <textarea  name="description_e" class="form-control" id="description_e"><?php echo $ligne_experience['description_e']; ?></textarea>
+                                             <script>CKEDITOR.replace( 'description_e' );</script>
+
                                          </div>
-                                         <input type="submit" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
+                                         <input type="submit" name="experience" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
                                     </form>
                                     </div>
                                 </div>

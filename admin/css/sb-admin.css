@@ -216,6 +216,9 @@ ul.alert-dropdown {
     border-color: #f0ad4e;
 }
 
+th{
+    background: #000;
+}
 .panel-yellow > .panel-heading {
     border-color: #f0ad4e;
     color: #fff;

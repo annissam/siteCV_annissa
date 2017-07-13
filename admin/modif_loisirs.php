@@ -1,25 +1,26 @@
-<?php require '../connexion/connexion.php' ?>
-
 <?php
-//gestion des contenus
-//insertion d'une loisir
-if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
-    if($_POST['loisir']!=''){//si compétencde n'est pas vide
-        $loisirs = addslashes($_POST['loisir']);
-        $pdoCV->exec("INSERT INTO t_loisirs VALUES (NULL, '$loisirs', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
-            header("location: loisirs.php");
-            exit();
+?>
+<?php require '../connexion/connexion.php' ?>
+<?php
+//je recupere la loisirs
+//gestion des contenus, mise a jour d'une loisirs
+if(isset($_POST['loisir'])){// par le nom du premier input
+    $loisir = addslashes($_POST['loisir']);
+    $id_loisir = $_POST['id_loisir'];
+    $pdoCV->exec("UPDATE t_loisirs SET loisir= '$loisir' WHERE id_loisir= '$id_loisir' ");
+    header('location: ../admin/loisirs.php');
+    exit();
 
-            }//ferme le if
-        }// ferme le if isset
- //suppression d'une loisir
- if(isset($_GET['id_loisir'])){
-     $efface =$_GET['id_loisir'];
-     $sql ="DELETE FROM t_loisirs WHERE id_loisir = '$efface'";
-     $pdoCV-> query($sql);//ou on peut avec exex
-     header("location :../admin/loisirs.php");
- }
- ?>
+}
+//UPDATE t_loisirss SET loisirs='$loisirs' WHERE id_loisir'$id_loisir' WHERE id_loisir='$id_loisir'
+
+
+$id_loisir = $_GET['id_loisir'];// par l'id et $_GET
+$sql = $pdoCV->query("SELECT * FROM t_loisirs WHERE id_loisir = '$id_loisir'"); // la requete egale à l'id
+$ligne_loisir = $sql->fetch();//
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -200,7 +201,6 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                             </li>
                         </ul>
                     </li>
-
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -213,16 +213,12 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <?php
-                        $sql =$pdoCV->query("SELECT * FROM t_titres_cv WHERE utilisateur_id ='1'");
-                        $ligne_titre =$sql->fetch();//va chercher sur une ligne!
-                        ?>
                         <small></small>
                         <h1 class="page-header">
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i><?php echo $ligne_titre['accroche']; ?>
+                                <i class="fa fa-dashboard"></i><?php echo $ligne_loisir['accroche']; ?>
                             </li>
                         </ol>
                     </div>
@@ -253,41 +249,22 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
                              <!--SECTION-1 -->
                              <section>
                                  <div class="row">
-                                     <?php
-                                     $sql =$pdoCV ->prepare("SELECT * FROM t_loisirs WHERE utilisateur_id ='1'"); // prépar la requete
-                                     $sql ->execute();//execute-la
-                                     $nbr_loisirs =$sql-> rowCount();
-                                     ?>
+
                                  </div>
                              </section>
                             <div class="col-lg-12 page-header text-center">
-                                <h2>LOISIRS</h2>
-                                <p>Il y a <?php echo $nbr_loisirs; ?> Loisirs dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
+                                <h2>MODIF LOISIRS</h2>
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 page-header text-center">
-                                     <table class="table table-striped">
-                                         <tbody>
-                                             <tr>
-                                                 <th scope="col">loisirs</th>
-                                                 <th scope="col">modifier</th>
-                                                 <th scope="col">supprimer</th>
-                                             </tr>
 
-                                             <tr>
-                                                 <?php while($ligne_loisir = $sql->fetch()) { ?>
-                                                 <td><?php echo $ligne_loisir['loisir']; ?></td>
-                                                 <td><a href="modif_loisirs.php?id_loisir=<?php echo $ligne_loisir['id_loisir']?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                                 <td><a class="supr" href="loisirs.php?id_loisir=<?php echo $ligne_loisir['id_loisir']?>"><span class="glyphicon glyphicon-trash"></span></a></td>;
-                                             </tr>
-                                             <?php } ?>
-                                         </tbody>
-                                     </table>
-                                     <form action="loisirs.php" method="post" class="text-center">
+                                     <!-- form modification d'une loisirs -->
+                                     <form action="modif_loisirs.php" method="post" class="text-center">
                                          <div class="form-group">
-                                             <label for="loisir">Inserer</label>
-                                             <input type="text" name="loisir" class="form-control" id="loisir" placeholder="inserez une compétence" >
+                                             <label for="loisir">Formulaire de mise a jour de la compétence</label>
+                                             <input type="text" name="loisir" class="form-control" value="<?php echo $ligne_loisir['loisir']; ?>">
+                                             <input hidden name="id_loisir" value="<?php echo $ligne_loisir['id_loisir']; ?>">
                                          </div>
                                          <input type="submit" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
                                     </form>
@@ -301,20 +278,19 @@ if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
 
                 <!-- /.row -->
 
-                <!-- /#wrapper -->
+    <!-- /#wrapper -->
 
-                <!-- jQuery -->
-                <script src="js/jquery.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-                <!-- Bootstrap Core JavaScript -->
-                <script src="js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
-                <!-- Morris Charts JavaScript -->
-                <!-- <script src="js/plugins/morris/raphael.min.js"></script>
-                <script src="js/plugins/morris/morris.min.js"></script>
-                <script src="js/plugins/morris/morris-data.js"></script> -->
+    <!-- Morris Charts JavaScript -->
+    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>
 
-                <script src="js/annissa.js"></script>
-            </body>
+</body>
 
-            </html>
+</html>

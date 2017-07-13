@@ -1,25 +1,28 @@
-
 <?php require '../connexion/connexion.php' ?>
+
 <?php
-//je recupere la loisir
-//gestion des contenus, mise a jour d'une loisir
-if(isset($_POST['loisir'])){// par le nom du premier input
-    $loisir=addslashes($_POST['loisir']);
-    $id_loisir = $_POST['id_loisir'];
-    $pdoCV->exec("UPDATE t_loisir SET loisir='$loisir'WHERE id_loisir='$id_loisir'");
-    header('location: ../admin/loisir.php');
-    exit();
+//gestion des contenus
+//insertion d'une realisation
+if(isset($_POST['titre_r'])){ // si onn recupere une nouvelle experience
+    if($_POST['titre_r']!=''){//si compétencde n'est pas vide
+        $titre = addslashes($_POST['titre_r']);
+        $sous_titre = addslashes($_POST['sous_titre_r']);
+        $date = addslashes($_POST['dates_r']);
+        $description = addslashes($_POST['description_r']);
+        $pdoCV->exec("INSERT INTO t_realisations VALUES (NULL,'$titre','$sous_titre', '$date','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+            header("location: realisations.php");
+            exit();
 
-}
-//UPDATE t_loisirs SET loisir='$loisir' WHERE id_loisir'$id_loisir' WHERE id_loisir='$id_loisir'
-
-
-$id_loisir = $_GET['id_loisir'];// par l'id et $_GET
-$sql = $pdoCV->query("SELECT * FROM t_loisir WHERE id_loisir = '$id_loisir'"); // la requete egale à l'id
-$ligne_loisir = $sql ->fetch();//
-?>
-
-
+            }//ferme le if
+        }// ferme le if isset
+ //suppression d'une realisation
+ if(isset($_GET['id_realisation'])){
+     $efface =$_GET['id_realisation'];
+     $sql ="DELETE FROM t_realisations WHERE id_realisation = '$efface'";
+     $pdoCV-> query($sql);//ou on peut avec exex
+     header("location :../admin/realisations.php");
+ }
+ ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -47,6 +50,7 @@ $ligne_loisir = $sql ->fetch();//
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.ckeditor.com/4.7.1/basic/ckeditor.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -169,7 +173,7 @@ $ligne_loisir = $sql ->fetch();//
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="login.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -180,33 +184,26 @@ $ligne_loisir = $sql ->fetch();//
                     <li class="active">
                         <a href="index.php"><i class="fa fa-fw fa-dashboard"></i>  <?php echo $ligne_utilisateur['prenom']; ?></a>
                     </li>
-
-                    <li>
-                        <a href="tables.php"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.php"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Insertion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="competences.php">Competence</a>
+                                <a href="competences.php">Competences</a>
                             </li>
                             <li>
-                                <a href="loisir.php">loisirs</a>
+                                <a href="experiences.php">Experience</a>
                             </li>
+                            <li>
+                                <a href="formations.php">Formations</a>
+                            </li>
+                            <li>
+                                <a href="loisirs.php">Loisirs</a>
+                            </li>
+                            <li>
+                                <a href="realisations.php">Realisations</a>
+                            </li>
+
                         </ul>
-                    </li>
-                    <li>
-                        <a href="blank-page.php"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
                     </li>
                 </ul>
             </div>
@@ -220,6 +217,10 @@ $ligne_loisir = $sql ->fetch();//
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
+                        <?php
+                        $sql =$pdoCV->query("SELECT * FROM t_titres_cv WHERE utilisateur_id ='1'");
+                        $ligne_titre =$sql->fetch();//va chercher sur une ligne!
+                        ?>
                         <small></small>
                         <h1 class="page-header">
                         </h1>
@@ -256,24 +257,61 @@ $ligne_loisir = $sql ->fetch();//
                              <!--SECTION-1 -->
                              <section>
                                  <div class="row">
-
+                                     <?php
+                                     $sql =$pdoCV ->prepare("SELECT * FROM t_realisations WHERE utilisateur_id ='1' "); // prépar la requete
+                                     $sql ->execute();//execute-la
+                                     $nbr_realisations =$sql-> rowCount();
+                                     ?>
                                  </div>
                              </section>
                             <div class="col-lg-12 page-header text-center">
-                                <h2>MODIF loisir</h2>
+                                <h2>REALISATIONS</h2>
+                                <p>Il y a <?php echo $nbr_realisations; ?> realisations dans la table pour <?php echo $ligne_utilisateur['pseudo']; ?></p>
                             </div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-lg-12 page-header text-center">
+                                     <table class="table table-striped">
+                                         <tbody>
+                                             <tr>
+                                                 <th scope="col">Titre de la realisation</th>
+                                                 <th scope="col">Sous titre</th>
+                                                 <th scope="col">Date </th>
+                                                 <th scope="col">Description</th>
+                                                 <th scope="col">Modifier</th>
+                                                 <th scope="col">Supprimer</th>
+                                             </tr>
 
-                                     <!-- form modification d'une loisir -->
-                                     <form action="modif_loisirs.php" method="post" class="text-center">
+                                             <tr>
+                                                 <?php while($ligne_realisation = $sql->fetch()) { ?>
+                                                 <td><?php echo $ligne_realisation['titre_r']; ?></td>
+                                                 <td><?php echo $ligne_realisation['sous_titre_r']; ?></td>
+                                                 <td><?php echo $ligne_realisation['dates_r']; ?></td>
+                                                 <td><?php echo $ligne_realisation['description_r']; ?></td>
+                                                 <td><a href="modif_realisation.php?id_realisation=<?php echo $ligne_realisation['id_realisation']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                                 <td><a href="realisations.php?id_realisation=<?php echo $ligne_realisation['id_realisation']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                             </tr>
+                                             <?php } ?>
+                                         </tbody>
+                                     </table>
+                                     <!-- form modification d'une realisation -->
+                                     <form action="realisations.php" name="titre_r" method="post" class="text-center">
                                          <div class="form-group">
-                                             <label for="loisir">Formulaire de mise a jour de la compétence</label>
-                                             <input type="text" name="loisir" class="form-control"value="<?php echo $ligne_loisir['loisir']; ?>">
-                                             <input hidden name="id_loisir" value="<?php echo $ligne_loisir['id_loisir']; ?>">
+                                             <label for="titre_r">realisation</label>
+                                             <input type="text" name="titre_r" class="form-control" id="titre_r" placeholder="inserez une formation" >
+
+                                             <label for="sous_titre_r">Sous-Titre</label>
+                                             <input type="text" name="sous_titre_r" class="form-control" id="sous_titre_r" placeholder="inserez un sous-titre" >
+
+                                             <label for="dates_r">Date</label>
+                                             <input type="date" name="dates_r" class="form-control" id="dates_r" >
+
+                                             <label for="description_r">Desription</label>
+                                             <textarea  name="description_r" class="form-control" id="description_r"></textarea>
+                                             <script>CKEDITOR.replace( 'description_r' );</script>
+
                                          </div>
-                                         <input type="submit" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
+                                         <input type="submit" name="realisation" value="Envoyez" class="btn btn-primary btn-ig" style="margin-top:10px;">
                                     </form>
                                     </div>
                                 </div>
@@ -294,10 +332,11 @@ $ligne_loisir = $sql ->fetch();//
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
+    <!-- <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script> -->
 
+    <script src="js/annissa.js"></script>
 </body>
 
 </html>
