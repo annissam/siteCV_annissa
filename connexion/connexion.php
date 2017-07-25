@@ -1,7 +1,7 @@
 <?php
 
 $hote='localhost';// le chemin vers le serveur
-$bdd='siteCV_annissa'; // le nom de la base de données
+$bdd='amekiri_bd'; // le nom de la base de données
 $utilisateur='root';//le nom d'utilisateur pour se connecter
 $passe=''; // mot de passe d'utilisateur
 //$passe='rooy'; //mot de passe mac en local

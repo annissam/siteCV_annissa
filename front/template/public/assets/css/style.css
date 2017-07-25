@@ -1,0 +1,80 @@
+.bg-faded {
+    background-color: #523539;
+}
+
+section#contact {
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#portfolio * {
+    z-index: 2;
+    color: rgb(212, 130, 118);
+}
+
+section h2.section-heading {
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color:#d48276;
+
+}
+
+p {
+    line-height: 1.75;
+    color: #b21639;
+}
+#mainNav .container .navbar-nav .nav-item .nav-link.active, #mainNav .container .navbar-nav .nav-item .nav-link:hover {
+    color: #f9abb5;
+}
+#mainNav .container .navbar-brand {
+    color: #f9abb5;
+    font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive
+}
+.fa-inverse {
+    color: #844174;
+}
+.btn-xl {
+    font-size: 19px;
+    font-weight: 700;
+    padding: 20px 40px;
+    border-radius: 50px;
+    color: #fff;
+    border-color: #fefefe;
+    background-color: rgba(90, 25, 64, 0.55);
+    font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    text-transform: uppercase;
+}
+
+#compex{
+background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
+}
+#formation{
+background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
+}
+#services{
+    background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
+}
+
+#portfolio{
+    background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
+}
+#contact{
+    background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
+}
+
+section#contact {
+    background-color: rgb(212, 130, 118);
+}
+
+@font-face {
+    font-family: Calibri;
+    font-weight: normal;
+    font-style: normal;
+}
+.team-member h4 {
+    margin-top: 25px;
+    margin-bottom: 0;
+    text-transform: none;
+    color: #d48276;
+}

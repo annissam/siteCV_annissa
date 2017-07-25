@@ -185,7 +185,7 @@ $ligne_formation = $sql ->fetch();//
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Insertion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="formations.php">formations</a>
+                                <a href="competences.php">Competences</a>
                             </li>
                             <li>
                                 <a href="experiences.php">Experiences</a>
