@@ -1,14 +1,19 @@
 <?php require '../connexion/connexion.php' ?>
 
+<?php require '../connexion/connexion.php' ?>
+
 <?php
 //gestion des contenus
 //insertion d'une competence
 if(isset($_POST['competence'])){ // si onn recupere une nouvelle competence
-    if($_POST['competence']!=''){//si compétencde n'est pas vide
-        $competence = addslashes($_POST['competence'],['image']);
-        $pdoCV->exec("INSERT INTO t_competences VALUES (NULL, '$competence','1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+    if($_POST['competence']!=''){//si compétence n'est pas vide
+
+        $competence = addslashes($_POST['competence']);
+
+        $pdoCV->exec("INSERT INTO t_competences (competence, utilisateur_id) VALUES ('$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: competences.php");
-            exit();
+
+            //exit();
 
             }//ferme le if
         }// ferme le if isset
@@ -19,6 +24,7 @@ if(isset($_POST['competence'])){ // si onn recupere une nouvelle competence
      $pdoCV-> query($sql);//ou on peut avec exex
      header("location :../admin/competences.php");
  }
+ ?>
  ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -227,16 +233,7 @@ if(isset($_POST['competence'])){ // si onn recupere une nouvelle competence
                         </ol>
                     </div>
                 </div>
-                <!-- /.row -->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
-                        </div>
-                    </div>
-                </div>
                 <!-- /.row -->
 
                 <div class="row">

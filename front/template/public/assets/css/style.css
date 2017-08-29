@@ -69,14 +69,19 @@
     background-color: #523539;
 }
 
-section#contact {
-    background-repeat: no-repeat;
-    background-position: center;
-}
 
 #portfolio * {
     z-index: 2;
     color: rgb(212, 130, 118);
+}
+
+#portfolio .portfolio-item .portfolio-caption {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 25px;
+    text-align: center;
+    background-color: #fff;
+    height:130px;
 }
 
 section h2.section-heading {
@@ -112,7 +117,7 @@ p {
     font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
     text-transform: uppercase;
 }
-/*---------------------------*/
+/*-----------IMAGE PAR SECTION----------------*/
 
 #competence{
     background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
@@ -138,9 +143,7 @@ background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc
     background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
 }
 
-section#contact {
-    background-color: rgb(212, 130, 118);
-}
+/*---------------------------------*/
 
 @font-face {
     font-family: Calibri;
@@ -156,66 +159,9 @@ section#contact {
 .text-muted {
     color: rgba(41, 43, 44, 0.89)!important;
 }
-/*-----------LOISIR-----------*/
 
-.loisirs {
-  background: url(../images/backg/bgTexture1.png) no-repeat;
-  background-size: cover;
-  height: 400px;
-  /*background-color: #f01414;*/
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-.loisirs h4 {
-  padding-top: 50px;
-  color: #E0E0E0;
-}
-.art {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  align-items: center;
-  color: #E0E0E0;
-  width: 120px;
-}
-.iconLoisirs {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  height: 200px;
-  width: 90%;
-  padding-top: 25px;
-  padding-bottom: 50px;
-}
-.zoom {
-  height: 150px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 88px;
-}
-.zoom p {
-  text-align: center;
-}
-.zoom img {
-  width: 73px;
-  height: 73px;
-  -webkit-filter: grayscale(100%);
-  /* Chrome, Safari, Opera */
-  filter: grayscale(100%);
-}
-.zoom img:hover {
-  width: 88px;
-  height: 88px;
-  -webkit-filter: grayscale(100%);
-  /* Chrome, Safari, Opera */
-  filter: none;
-  transition: 0.5s;
-  cursor: pointer;
-}
-#cuisine, #art, #connected, #sortir, #voyage, #cinephile {
-  display: none;
+section#contact {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(212, 130, 118);
 }

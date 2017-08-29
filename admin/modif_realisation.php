@@ -7,7 +7,6 @@ if(isset($_POST['titre_r'])){
 		$sous_titre = addslashes($_POST['sous_titre_r']);
         $dates = addslashes($_POST['dates_r']);
 		$description = addslashes($_POST['description_r']);
-
 		$id_realisation = $_POST['id_realisation'];
 
 

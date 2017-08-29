@@ -175,13 +175,6 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
                             </div>
                         </div>
                     </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-image">
-                            <h4>Be Part
-                                <br>Of Our
-                                <br>Story!</h4>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -198,7 +191,7 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Formations</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted">Les formations parcouru...</h3>
             </div>
         </div>
         <div class="row">
@@ -248,6 +241,8 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
                 <div class="portfolio-caption">
                     <h4><?= $realisation->titre_r ?></h4>
                     <p class="text-muted"><?= $realisation->sous_titre_r?></p>
+                    <p class="text-muted"><?= $realisation->dates_r?></p>
+
                 </div>
             </div>
         <?php endforeach ;?>
@@ -255,7 +250,37 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
 
         </div>
 </section>
+<!-- Modal 1 -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>Nom de Projet</h2>
+                            <p class="item-intro text-muted"></p>
+                            <img class="img-fluid d-block mx-auto" src="<?= $this->assetUrl('img/portfolio/'.$realisation->description_r);?>" alt="">
+                            </ul>
+                            <button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fa fa-times"></i> Fermers</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $this->stop('portfolio'); ?>
+
+
 
 
 <!--Loisirs-->
@@ -265,7 +290,7 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Loisirs </h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted">Mes loisirs de tout les jours hors travail...</h3>
             </div>
         </div>
         <div class="row text-center">
@@ -273,7 +298,7 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
             <div class="col-md-4">
                 <span class="fa-stack fa-4x">
                     <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    <i class="fa fa-heart fa-stack-1x fa-inverse"></i>
                 </span>
                 <h4 class="service-heading"><?= $loisir->loisir?></h4>
                 <p class="text-muted"></p>
@@ -295,7 +320,7 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Contacter moi !</h2>
+                <h2 class="section-heading">Contactez-moi !</h2>
                 <h3 class="section-subheading text-muted"></h3>
             </div>
         </div>
@@ -305,28 +330,28 @@ Académie Fratellini La plaine Saint Denis / Télé-thon – La Plaine Saint Den
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input class="form-control" id="name" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
+                                <input class="form-control" id="name" type="text" placeholder="Votre nom *" required data-validation-required-message="Please enter your name.">
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
+                                <input class="form-control" id="email" type="email" placeholder="Votre email *" required data-validation-required-message="Please enter your email address.">
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
+                                <input class="form-control" id="phone" type="tel" placeholder="Votre telephone *" required data-validation-required-message="Please enter your phone number.">
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <textarea class="form-control" id="message" placeholder="Your Message *" required data-validation-required-message="Please enter a message."></textarea>
+                                <textarea class="form-control" id="message" placeholder=" Votre message*" required data-validation-required-message="Please enter a message."></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-lg-12 text-center">
                             <div id="success"></div>
-                            <button class="btn btn-xl" type="submit">Send Message</button>
+                            <button class="btn btn-xl" type="submit">Envoyez votre message</button>
                         </div>
                     </div>
                 </form>
