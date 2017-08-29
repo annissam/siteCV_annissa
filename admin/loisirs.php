@@ -6,7 +6,8 @@
 if(isset($_POST['loisir'])){ // si onn recupere une nouvelle loisir
     if($_POST['loisir']!=''){//si compétencde n'est pas vide
         $loisirs = addslashes($_POST['loisir']);
-        $pdoCV->exec("INSERT INTO t_loisirs VALUES (NULL, '$loisirs', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+        $image = addslashes($_POST['image_l']);
+        $pdoCV->exec("INSERT INTO t_loisirs VALUES (NULL, '$loisirs','$image' '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: loisirs.php");
             exit();
 

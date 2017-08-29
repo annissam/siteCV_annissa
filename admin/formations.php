@@ -6,10 +6,11 @@
 if(isset($_POST['titre_f'])){ // si onn recupere une nouvelle formation
     if($_POST['titre_f']!=''){//si compétencde n'est pas vide
         $titre = addslashes($_POST['titre_f']);
+        $image = addslashes($_POST['image_f']);
         $sous_titre = addslashes($_POST['sous_titre_f']);
         $date = addslashes($_POST['dates_f']);
         $description = addslashes($_POST['description_f']);
-        $pdoCV->exec("INSERT INTO t_formations VALUES (NULL,'$titre','$sous_titre','$date','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+        $pdoCV->exec("INSERT INTO t_formations VALUES (NULL,'$titre','$image','$sous_titre','$date','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: formations.php");
             // exit();
         }//ferme le if
@@ -277,6 +278,7 @@ if(isset($_POST['titre_f'])){ // si onn recupere une nouvelle formation
                                                  <th scope="col">Sous titre</th>
                                                  <th scope="col">Date </th>
                                                  <th scope="col">Description</th>
+                                                 <th scope="col">Image</th>
                                                  <th scope="col">Modifier</th>
                                                  <th scope="col">Supprimer</th>
                                              </tr>
@@ -287,6 +289,7 @@ if(isset($_POST['titre_f'])){ // si onn recupere une nouvelle formation
                                                  <td><?php echo $ligne_formation['sous_titre_f']; ?></td>
                                                  <td><?php echo $ligne_formation['dates_f']; ?></td>
                                                  <td><?php echo $ligne_formation['description_f']; ?></td>
+                                                 <td><?php echo $ligne_formation['image_f']; ?></td>
                                                  <td><a href="modif_formation.php?id_formation=<?php echo $ligne_formation['id_formation']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
                                                  <td><a href="formations.php?id_formation=<?php echo $ligne_formation['id_formation']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
                                              </tr>
@@ -295,7 +298,6 @@ if(isset($_POST['titre_f'])){ // si onn recupere une nouvelle formation
                                      </table>
                                      <!-- form modification d'une formation -->
                                      <div class="tableau">
-
                                      <form action="formations.php" name="formation" method="post" class="text-center">
                                          <div class="form-group">
                                              <label for="titre_f">formation</label>
@@ -306,6 +308,9 @@ if(isset($_POST['titre_f'])){ // si onn recupere une nouvelle formation
 
                                              <label for="dates_f">Date</label>
                                              <input type="date" name="dates_f" class="form-control" id="dates_f" >
+
+                                             <label for="image_f">Image</label>
+                                             <input type="text" name="image_f" class="form-control" id="image_f" >
 
                                              <label for="description_e">Desription</label>
                                              <textarea  name="description_f" class="form-control" id="description_f"></textarea>

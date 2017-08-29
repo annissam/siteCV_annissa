@@ -1,3 +1,70 @@
+.postit {
+    line-height: 1;
+    text-align: center;
+    width: 275px;
+    margin: 25px;
+    min-height: 244px;
+    max-height: 245px;
+    padding-top: 35px;
+    position: relative;
+    border: 1px solid #E8E8E8;
+    border-top: 60px solid #fdfd86!important;
+    font-family: 'Reenie Beanie'!important;
+    font-size: 35px;
+    border-bottom-right-radius: 60px 5px;
+    display: inline-block;
+    background: #ffff88;
+    background: -moz-linear-gradient(-45deg, #ffff88 81%, #ffff88 82%, #ffff88 82%, #ffffc6 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(81%,#ffff88), color-stop(82%,#ffff88), color-stop(82%,#ffff88), color-stop(100%,#ffffc6));
+    background: -webkit-linear-gradient(-45deg, #ffff88 81%,#ffff88 82%,#ffff88 82%,#ffffc6 100%);
+    background: -o-linear-gradient(-45deg, #ffff88 81%,#ffff88 82%,#ffff88 82%,#ffffc6 100%);
+    background: -ms-linear-gradient(-45deg, #ffff88 81%,#ffff88 82%,#ffff88 82%,#ffffc6 100%);
+    background: linear-gradient(135deg, #ffff88 81%,#ffff88 82%,#ffff88 82%,#ffffc6 100%);
+    color: black;
+}
+#competences.inc {
+  background-color: #EA4E66;
+}
+.text-center {
+    text-align: center!important;
+    padding: 30px;
+}
+
+.service-heading {
+    margin: 45px 0;
+    text-transform: none;
+}
+.progress{
+    background-color: #e5ddda;
+    line-height: 2rem;
+}
+.progress-bar {
+    height: 2rem;
+    color: #fff;
+    background-color: rgba(233, 30, 99, 0.53);
+}
+*, :after, :before{
+  box-sizing: inherit;
+}
+.postit:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -0px;
+    bottom: 20px;
+    width: 200px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 15px 5px rgba(0, 0, 0, 0.40);
+    -moz-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -webkit-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -o-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    -ms-transform: matrix(-1, -0.1, 0, 1, 0, 0);
+    transform: matrix(-1, -0.1, 0, 1, 0, 0);
+}
+
+
+
 .bg-faded {
     background-color: #523539;
 }
@@ -25,10 +92,10 @@ p {
     color: #b21639;
 }
 #mainNav .container .navbar-nav .nav-item .nav-link.active, #mainNav .container .navbar-nav .nav-item .nav-link:hover {
-    color: #f9abb5;
+    color: pink;
 }
 #mainNav .container .navbar-brand {
-    color: #f9abb5;
+    color: #fff;
     font-family: 'Kaushan Script','Helvetica Neue',Helvetica,Arial,cursive
 }
 .fa-inverse {
@@ -45,22 +112,30 @@ p {
     font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
     text-transform: uppercase;
 }
+/*---------------------------*/
 
-#compex{
-background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
-}
-#formation{
-background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
-}
-#services{
+#competence{
     background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
+}
+
+#experience{
+    background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
+}
+
+#formation{
+background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
 }
 
 #portfolio{
     background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
 }
-#contact{
+
+#loisir{
     background: url(http://lebocalcoworking.fr/wp-content/uploads/2016/05/bois-blanc-1.jpg) no-repeat center center fixed;
+}
+
+#contact{
+    background: url(http://belajoo.com/i/2017/01/rain-photography-wallpapers-desktop.jpg) no-repeat center center fixed;
 }
 
 section#contact {
@@ -76,5 +151,71 @@ section#contact {
     margin-top: 25px;
     margin-bottom: 0;
     text-transform: none;
-    color: #d48276;
+    color: #292b2c;
+}
+.text-muted {
+    color: rgba(41, 43, 44, 0.89)!important;
+}
+/*-----------LOISIR-----------*/
+
+.loisirs {
+  background: url(../images/backg/bgTexture1.png) no-repeat;
+  background-size: cover;
+  height: 400px;
+  /*background-color: #f01414;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.loisirs h4 {
+  padding-top: 50px;
+  color: #E0E0E0;
+}
+.art {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  color: #E0E0E0;
+  width: 120px;
+}
+.iconLoisirs {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 200px;
+  width: 90%;
+  padding-top: 25px;
+  padding-bottom: 50px;
+}
+.zoom {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 88px;
+}
+.zoom p {
+  text-align: center;
+}
+.zoom img {
+  width: 73px;
+  height: 73px;
+  -webkit-filter: grayscale(100%);
+  /* Chrome, Safari, Opera */
+  filter: grayscale(100%);
+}
+.zoom img:hover {
+  width: 88px;
+  height: 88px;
+  -webkit-filter: grayscale(100%);
+  /* Chrome, Safari, Opera */
+  filter: none;
+  transition: 0.5s;
+  cursor: pointer;
+}
+#cuisine, #art, #connected, #sortir, #voyage, #cinephile {
+  display: none;
 }

@@ -29,10 +29,9 @@ class DbFactory
            't_competences'     =>  'id_competence',
            't_experiences'     =>  'id_experience',
            't_formations'      =>  'id_formation',
-           't_intertitres'     =>  'id_intertitre',
            't_loisirs'         =>  'id_loisir',
-           't_realisations'    =>  'id_realisation'
-           't_titres_cv'        =>  'id_titre_cv'
+           't_realisations'    =>  'id_realisation',
+           't_titres_cv'       =>  'id_titre_cv'
         ));
 
     }

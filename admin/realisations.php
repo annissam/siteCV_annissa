@@ -9,7 +9,8 @@ if(isset($_POST['titre_r'])){ // si onn recupere une nouvelle experience
         $sous_titre = addslashes($_POST['sous_titre_r']);
         $date = addslashes($_POST['dates_r']);
         $description = addslashes($_POST['description_r']);
-        $pdoCV->exec("INSERT INTO t_realisations VALUES (NULL,'$titre','$sous_titre', '$date','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+        $image = addslashes($_POST['image_r']);
+        $pdoCV->exec("INSERT INTO t_realisations VALUES (NULL,'$titre','$sous_titre', '$date','$description','$image' '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: realisations.php");
             exit();
 

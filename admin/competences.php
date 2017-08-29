@@ -5,8 +5,8 @@
 //insertion d'une competence
 if(isset($_POST['competence'])){ // si onn recupere une nouvelle competence
     if($_POST['competence']!=''){//si compétencde n'est pas vide
-        $competence = addslashes($_POST['competence']);
-        $pdoCV->exec("INSERT INTO t_competences VALUES (NULL, '$competence', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+        $competence = addslashes($_POST['competence'],['image']);
+        $pdoCV->exec("INSERT INTO t_competences VALUES (NULL, '$competence','1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: competences.php");
             exit();
 

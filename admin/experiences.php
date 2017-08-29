@@ -9,7 +9,7 @@ if(isset($_POST['titre_e'])){ // si onn recupere une nouvelle experience
         $date = addslashes($_POST['dates_e']);
         $sous_titre = addslashes($_POST['sous_titre_e']);
         $description = addslashes($_POST['description_e']);
-        $pdoCV->exec("INSERT INTO t_experiences VALUES (NULL, '$date','$titre','$sous_titre','$description', '1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
+        $pdoCV->exec("INSERT INTO t_experiences VALUES (NULL, '$date','$titre','$sous_titre','$description','1') ");//mettre $id_utilisateur quand on l'aura en variable de Session
             header("location: experiences.php");
             // exit();
         }//ferme le if
